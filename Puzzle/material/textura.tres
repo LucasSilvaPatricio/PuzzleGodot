@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://c8qmxgylcbf06"]
+
+[ext_resource type="Texture2D" uid="uid://1jvmx7tj6ap0" path="res://assets/Fishing_hut,_jetties_and_boats_in_Loddebo.jpg" id="1_ph7y7"]
+
+[resource]
+albedo_texture = ExtResource("1_ph7y7")
+roughness = 0.05

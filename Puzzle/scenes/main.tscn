@@ -1,0 +1,96 @@
+[gd_scene format=4 uid="uid://clbkhyfthx4rp"]
+
+[ext_resource type="Texture2D" uid="uid://befwons5lgdbk" path="res://HDRI/DaySkyHDRI029A_1K_TONEMAPPED.jpg" id="1_0wfyh"]
+[ext_resource type="PackedScene" uid="uid://dtt3ucq5tfrfb" path="res://scenes/tabuleiro.tscn" id="1_o5qli"]
+[ext_resource type="Texture2D" uid="uid://c7f0u2nvdgl1n" path="res://assets/christmas/WoodFloor025_1K-JPG_Color.jpg" id="3_tbgi4"]
+[ext_resource type="Texture2D" uid="uid://f67nbuabalf3" path="res://assets/christmas/WoodFloor025_1K-JPG_Roughness.jpg" id="4_tefeu"]
+[ext_resource type="Texture2D" uid="uid://b81wueofcvkap" path="res://assets/christmas/WoodFloor025_1K-JPG_NormalGL.jpg" id="5_o6xl0"]
+[ext_resource type="AudioStream" uid="uid://dssu4o7taclst" path="res://assets/Local_20Forecast_20-_20Elevator.mp3" id="6_tefeu"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_f2mpe"]
+panorama = ExtResource("1_0wfyh")
+
+[sub_resource type="Sky" id="Sky_ko36w"]
+sky_material = SubResource("PanoramaSkyMaterial_f2mpe")
+
+[sub_resource type="Environment" id="Environment_enhji"]
+background_mode = 2
+sky = SubResource("Sky_ko36w")
+ambient_light_source = 3
+reflected_light_source = 2
+tonemap_mode = 4
+ssao_enabled = true
+ssao_intensity = 4.0
+ssil_enabled = true
+sdfgi_use_occlusion = true
+glow_enabled = true
+glow_intensity = 2.42
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6tjto"]
+resource_name = "wood"
+cull_mode = 2
+albedo_texture = ExtResource("3_tbgi4")
+metallic_texture = ExtResource("4_tefeu")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("4_tefeu")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("5_o6xl0")
+metadata/_gltf_primary_texture_coord = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_n5owx"]
+_surfaces = [{
+"aabb": AABB(-10, -1, -10, 20, 2, 20),
+"format": 34896613377,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAACAAEAAwAEAAEABQAAAAIAAwAAAAUABAAGAAIABQACAAYAAwAHAAQAAwAFAAcABwAGAAQABwAFAAYA"),
+"name": "wood",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("AAAAAP//AAAAAP//AAAAAAAA/////wAAAAAAAAAAAAD/////AAAAAP//AAD//wAA////////AAD//wAAAAAAAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_tipki"]
+resource_name = "tabuleiro_Cube_014"
+_surfaces = [{
+"aabb": AABB(-10, -1, -10, 20, 2, 20),
+"attribute_data": PackedByteArray("VFUys///IaJUVSGi//8ys1RVMrP//yGiVFUhov//MrP//zKzVFUhov//IaJUVTKz//8ys1RVIaL//yGiVFUys1RVVFX///////9UVVRV/////1RVVFX//1RVVFX/////"),
+"format": 34896613399,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEAFAAVABYAFAAXABUA"),
+"material": SubResource("StandardMaterial3D_6tjto"),
+"name": "wood",
+"primitive": 3,
+"uv_scale": Vector4(3, 3, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("AAAAAP//AAAAAP//AAAAAAAA/////wAAAAAAAAAAAAAAAAAAAAAAAP////8AAAAAAAD//wAAAAD//wAAAAAAAP//AAAAAP+//////////7//////AAD/v///AAD///+///8AAP//AIAAAP////8AgP///////wCAAAAAAP//AIAAAAAAAAD/P///AAD///8///8AAAAA/z8AAAAA////P/////8AAP+/AAD//////78AAP//AAD/v/////////+//z//f/8//3//P/9//z//f////3////9/////f////3//fwAA/38AAP9/AAD/fwAA/3////9/////f////3///wAA/38AAP9/AAD/fwAA/3////9/////f////3////9/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_n5owx")
+
+[node name="Main" type="Node3D" unique_id=1873301387]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=2022578661]
+transform = Transform3D(0.46954536, -0.49754873, 0.7293644, -0.84082794, -3.6893432e-08, 0.5413026, -0.26932442, -0.867436, -0.418353, 0, 2.562986, 0)
+shadow_enabled = true
+shadow_normal_bias = 0.0
+shadow_blur = 2.412
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=350658340]
+environment = SubResource("Environment_enhji")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=130404953]
+transform = Transform3D(1, 0, 0, 0, 0.22154845, 0.9751494, 0, -0.9751494, 0.22154845, 0.2634528, 1.5322237, 0.4684968)
+
+[node name="tabuleiro2" parent="." unique_id=919256700 instance=ExtResource("1_o5qli")]
+
+[node name="Cube" type="MeshInstance3D" parent="." unique_id=26741419]
+transform = Transform3D(1, 0, 0, 0, 0.26379198, 0, 0, 0, 1, 0, -0.35517752, 0)
+mesh = SubResource("ArrayMesh_tipki")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1219714392]
+stream = ExtResource("6_tefeu")
+volume_db = -20.0
+autoplay = true
