@@ -151,6 +151,7 @@ func _restart() -> void:
 	time_count = 0.0
 	number_of_movements = 0
 	movements_label.text = "Movements: %d"%number_of_movements
+
 func _on_static_body_3d_input_event(_camera: Node, event: InputEvent, event_position: Vector3, _normal: Vector3, _shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.is_pressed():
 		if event.button_index == MOUSE_BUTTON_LEFT:
