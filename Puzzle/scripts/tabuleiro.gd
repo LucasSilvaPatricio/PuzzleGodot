@@ -18,12 +18,7 @@ var tab_positions = { 0:0,1:1, 2:2, 3:3,
 				}
 				
 var original_positions = tab_positions.duplicate()
-#var tab_positions = [
-#					0,1,2,3, # 0, 1, 2, 3
-#					4,5,6,7, # 4, 5, 6, 7
-#					8,9,10,11, # 8, 9, 10, 11
-#					12,13,14,-1 # 12, 13, 14, null
-#					]
+
 var time_count :float = 0.0
 var number_of_movements :int = 0
 

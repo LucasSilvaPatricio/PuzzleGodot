@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://dtt3ucq5tfrfb"]
 
 [ext_resource type="Texture2D" uid="uid://bctadcidgnta" path="res://assets/textura.png" id="1_mbpgq"]
-[ext_resource type="Script" uid="uid://b3yu2us0cow4m" path="res://scenes/tabuleiro.gd" id="1_n5yea"]
+[ext_resource type="Script" uid="uid://b3yu2us0cow4m" path="res://scripts/tabuleiro.gd" id="1_n5yea"]
 [ext_resource type="Texture2D" uid="uid://bb80kmfcsqq45" path="res://assets/christmas/ChristmasTreeOrnament019_1K-JPG_Color.jpg" id="2_4ki4h"]
 [ext_resource type="Material" uid="uid://c8qmxgylcbf06" path="res://material/textura.tres" id="2_tvb07"]
 [ext_resource type="Texture2D" uid="uid://ctnohlqk5vbwl" path="res://assets/christmas/ChristmasTreeOrnament019_1K-JPG_Roughness.jpg" id="3_qg4j7"]

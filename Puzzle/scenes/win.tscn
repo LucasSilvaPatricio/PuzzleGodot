@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cdb5wgh47noap"]
 
-[ext_resource type="Script" uid="uid://byydbpabthaci" path="res://scenes/win.gd" id="1_r4oei"]
+[ext_resource type="Script" uid="uid://byydbpabthaci" path="res://scripts/win.gd" id="1_r4oei"]
 [ext_resource type="StyleBox" uid="uid://buafxdjl66v0b" path="res://style/new_style_box_flat.tres" id="2_826fv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iiocm"]
