@@ -7,11 +7,13 @@
 [ext_resource type="Texture2D" uid="uid://ctnohlqk5vbwl" path="res://assets/christmas/ChristmasTreeOrnament019_1K-JPG_Roughness.jpg" id="3_qg4j7"]
 [ext_resource type="Texture2D" uid="uid://c5usuhlkvprpg" path="res://assets/Common_starfish_in_Brofjorden_2.jpg" id="3_tvb07"]
 [ext_resource type="Texture2D" uid="uid://li3tyrocxkbg" path="res://assets/christmas/ChristmasTreeOrnament019_1K-JPG_NormalDX.jpg" id="4_i6856"]
+[ext_resource type="StyleBox" uid="uid://buafxdjl66v0b" path="res://style/new_style_box_flat.tres" id="8_i6856"]
+[ext_resource type="AudioStream" uid="uid://chxw7sinmri8m" path="res://assets/dragon-studio-button-press-382713.mp3" id="9_a5pju"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pqst3"]
 resource_name = "tabuleiro"
 cull_mode = 2
-albedo_color = Color(0, 1, 1, 1)
+albedo_color = Color(0.19215687, 1, 1, 1)
 albedo_texture = ExtResource("2_4ki4h")
 metallic = 1.0
 metallic_texture = ExtResource("3_qg4j7")
@@ -1048,9 +1050,32 @@ roughness = 0.0
 [sub_resource type="BoxMesh" id="BoxMesh_i6856"]
 size = Vector3(0.51177245, 0.001, 0.3967278)
 
-[node name="tabuleiro" type="Node3D" unique_id=919256700 node_paths=PackedStringArray("static_bodys")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i6856"]
+bg_color = Color(0.6709629, 0.2032786, 0.86926216, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a5pju"]
+bg_color = Color(0.09162072, 0.15093237, 0.3815099, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="Theme" id="Theme_qg4j7"]
+Button/constants/align_to_largest_stylebox = 0
+Button/styles/disabled = ExtResource("8_i6856")
+Button/styles/hover = SubResource("StyleBoxFlat_i6856")
+Button/styles/normal = ExtResource("8_i6856")
+Button/styles/pressed = SubResource("StyleBoxFlat_a5pju")
+
+[node name="tabuleiro" type="Node3D" unique_id=919256700 node_paths=PackedStringArray("static_bodys", "time_count_label", "movements_label")]
 script = ExtResource("1_n5yea")
 static_bodys = [NodePath("0"), NodePath("1"), NodePath("2"), NodePath("3"), NodePath("4"), NodePath("5"), NodePath("6"), NodePath("7"), NodePath("8"), NodePath("9"), NodePath("10"), NodePath("11"), NodePath("12"), NodePath("13"), NodePath("14"), NodePath("15")]
+time_count_label = NodePath("Control/BoxContainer/VBoxContainer/TimeCount")
+movements_label = NodePath("Control/BoxContainer/VBoxContainer/Movements")
 
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=1299983279]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04889208, 0)
@@ -1236,15 +1261,6 @@ mesh = SubResource("ArrayMesh_20f4j")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85136104, -1.6166611)
 target_position = Vector3(0, -100, 0)
 
-[node name="Label" type="Label" parent="." unique_id=1478180910]
-anchors_preset = -1
-anchor_right = 0.26700002
-anchor_bottom = 0.09
-offset_right = 0.4159851
-offset_bottom = -0.3200035
-theme_override_font_sizes/font_size = 42
-text = "win="
-
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1872391820]
 transform = Transform3D(-0.35883242, 0, -0.60103184, 0, 0.7, 0, 0.60103184, 0, -0.35883242, 1.7529528, -0.08538577, -0.106831044)
 material_override = SubResource("StandardMaterial3D_enhji")
@@ -1266,6 +1282,58 @@ mesh = SubResource("BoxMesh_i6856")
 volume_db = -20.0
 autoplay = true
 
+[node name="Control" type="Control" parent="." unique_id=627977766]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 888.0
+offset_top = 28.0
+offset_right = 928.0
+offset_bottom = 68.0
+
+[node name="ColorRect" type="ColorRect" parent="Control" unique_id=696778601]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -1.5250001
+anchor_right = 5.425
+anchor_bottom = 2.3000002
+offset_top = 1.0
+color = Color(0.9869713, 0.30794254, 0, 0.5372549)
+
+[node name="BoxContainer" type="BoxContainer" parent="Control" unique_id=877217551]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -1.325
+anchor_right = 5.925
+anchor_bottom = 2.2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/BoxContainer" unique_id=2124274684]
+layout_mode = 2
+
+[node name="TimeCount" type="Label" parent="Control/BoxContainer/VBoxContainer" unique_id=1384220741]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "Time: "
+
+[node name="Movements" type="Label" parent="Control/BoxContainer/VBoxContainer" unique_id=2138004588]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "Movements: "
+
+[node name="Button" type="Button" parent="Control" unique_id=729169038]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -21.325
+anchor_right = -18.575
+anchor_bottom = 1.3750001
+offset_top = 1.0
+theme = SubResource("Theme_qg4j7")
+text = "restart"
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="." unique_id=1725169719]
+stream = ExtResource("9_a5pju")
+
 [connection signal="input_event" from="0" to="." method="_on_static_body_3d_input_event"]
 [connection signal="input_event" from="1" to="." method="_on_static_body_3d_input_event"]
 [connection signal="input_event" from="2" to="." method="_on_static_body_3d_input_event"]
@@ -1282,3 +1350,4 @@ autoplay = true
 [connection signal="input_event" from="13" to="." method="_on_static_body_3d_input_event"]
 [connection signal="input_event" from="14" to="." method="_on_static_body_3d_input_event"]
 [connection signal="input_event" from="15" to="." method="_on_static_body_3d_input_event"]
+[connection signal="button_up" from="Control/Button" to="." method="_on_button_button_up"]

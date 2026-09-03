@@ -1,12 +1,37 @@
 [gd_scene format=3 uid="uid://cdb5wgh47noap"]
 
-[node name="Win" type="Control" unique_id=861297564]
+[ext_resource type="Script" uid="uid://byydbpabthaci" path="res://scenes/win.gd" id="1_r4oei"]
+[ext_resource type="StyleBox" uid="uid://buafxdjl66v0b" path="res://style/new_style_box_flat.tres" id="2_826fv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iiocm"]
+bg_color = Color(0.6887621, 0.30995515, 0.8106648, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yxbqr"]
+bg_color = Color(0, 0.16083601, 0.27012, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="Theme" id="Theme_a5pju"]
+Button/styles/hover = SubResource("StyleBoxFlat_iiocm")
+Button/styles/normal = ExtResource("2_826fv")
+Button/styles/pressed = SubResource("StyleBoxFlat_yxbqr")
+
+[node name="Win" type="Control" unique_id=861297564 node_paths=PackedStringArray("time_count_label", "number_movements_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_r4oei")
+time_count_label = NodePath("BoxContainer/VBoxContainer/TimeCount")
+number_movements_label = NodePath("BoxContainer/VBoxContainer/NumberMovements")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=678068290]
 layout_mode = 0
@@ -14,19 +39,27 @@ offset_right = 1179.0
 offset_bottom = 667.0
 color = Color(0.92500544, 0.46930617, 0.28806338, 1)
 
-[node name="Label" type="Label" parent="." unique_id=12593381]
+[node name="BoxContainer" type="BoxContainer" parent="." unique_id=1534232731]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.215
-anchor_top = 0.42100003
-anchor_right = 0.785
-anchor_bottom = 0.606
-offset_left = -0.18000793
-offset_top = -17.308014
-offset_right = 0.17999268
-offset_bottom = -0.1880188
+anchor_left = 0.40100002
+anchor_top = 0.185
+anchor_right = 0.59900004
+anchor_bottom = 0.81500006
+offset_left = -0.45202637
+offset_top = 0.11999512
+offset_right = 0.45196533
+offset_bottom = -0.12005615
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BoxContainer" unique_id=2073039103]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 32
+
+[node name="Label" type="Label" parent="BoxContainer/VBoxContainer" unique_id=12593381]
+layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 25
@@ -34,22 +67,28 @@ theme_override_font_sizes/font_size = 96
 text = "WIN!"
 horizontal_alignment = 1
 
-[node name="Label2" type="Label" parent="." unique_id=1828559977]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.21400002
-anchor_top = 0.65900004
-anchor_right = 0.785
-anchor_bottom = 0.739
-offset_left = 0.47198486
-offset_top = -0.03201294
-offset_right = -0.32006836
-offset_bottom = 0.12799072
-grow_horizontal = 2
-grow_vertical = 2
+[node name="TimeCount" type="Label" parent="BoxContainer/VBoxContainer" unique_id=1828559977]
+layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 35
 text = "Time: 5.0"
 horizontal_alignment = 1
+
+[node name="NumberMovements" type="Label" parent="BoxContainer/VBoxContainer" unique_id=1610260553]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 35
+text = "Movements:"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="BoxContainer/VBoxContainer" unique_id=60611524]
+layout_mode = 2
+theme = SubResource("Theme_a5pju")
+theme_override_font_sizes/font_size = 30
+text = "New Game"
+
+[connection signal="button_up" from="BoxContainer/VBoxContainer/Button" to="." method="_on_button_button_up"]

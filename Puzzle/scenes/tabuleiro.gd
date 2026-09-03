@@ -10,7 +10,7 @@ class_name tabuleiro
 enum direction {LEFT,RIGHT, UP, DOWN, NONE}
 
 var win = true
-var scene_win :Control
+var scene_win :win_control
 var tab_positions = { 0:0,1:1, 2:2, 3:3,
 				   4:4, 5:5, 6:6, 7:7,
 				   8:8, 9:9, 10:10, 11:11,
@@ -24,26 +24,38 @@ var original_positions = tab_positions.duplicate()
 #					8,9,10,11, # 8, 9, 10, 11
 #					12,13,14,-1 # 12, 13, 14, null
 #					]
-					
+var time_count :float = 0.0
+var number_of_movements :int = 0
+
+@export var time_count_label :Label
+@export var movements_label :Label
+
+signal score_game(time_count, number_of_movements)
+
 func _ready() -> void:
 	
 	random_box()
-	debugger()
+	#debugger()
 	
 	win = _check_win()
 	
-	scene_win = win_scene.instantiate()
+	scene_win  = win_scene.instantiate()
 	add_child(scene_win)
 	scene_win.visible=false
+	scene_win.new_game.connect(_restart)
+	movements_label.text = "Movements: %d"%number_of_movements
 	
-func _process(_delta: float) -> void:
-	$Label.text = "win="+str(win)
-
+func _process(delta: float) -> void:
+	time_count += delta
+	time_count_label.text = "Time: %.1f"%time_count
+	
 func change_position(index :int) -> Variant:
-
+	
+	number_of_movements+=1
+	movements_label.text = "Movements: %d"%number_of_movements
 	if tab_positions[index] == -1:
 		return
-
+	$AudioStreamPlayer2.play()
 	var direction_move :direction = direction.NONE
 	var next_index = index+1 
 	var prev_index = index-1
@@ -100,11 +112,13 @@ func change_position(index :int) -> Variant:
 		direction.DOWN:
 			t.tween_property(mesh,"position",mesh.position+Vector3(0,0,0.4), speed) 
 			#mesh.position = mesh.position + Vector3(0,0,0.4)
-	debugger()
+	#debugger()
+	
 	win = _check_win()
 	
 	if win:
 		scene_win.visible=true
+		score_game.emit(time_count, number_of_movements)
 		
 	return direction_move
 
@@ -135,6 +149,13 @@ func debugger() -> void:
 func _check_win() -> bool:
 	return true if tab_positions == original_positions else false
 
+func _restart() -> void:
+	random_box()
+	debugger()
+	scene_win.visible=false
+	time_count = 0.0
+	number_of_movements = 0
+	movements_label.text = "Movements: %d"%number_of_movements
 func _on_static_body_3d_input_event(_camera: Node, event: InputEvent, event_position: Vector3, _normal: Vector3, _shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.is_pressed():
 		if event.button_index == MOUSE_BUTTON_LEFT:
@@ -144,3 +165,6 @@ func _on_static_body_3d_input_event(_camera: Node, event: InputEvent, event_posi
 			if(raycast.is_colliding()):
 				var mesh_name = raycast.get_collider().get("name")
 				change_position(int(mesh_name))
+
+func _on_button_button_up() -> void:
+	_restart()

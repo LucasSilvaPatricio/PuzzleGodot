@@ -21,9 +21,7 @@ reflected_light_source = 2
 tonemap_mode = 4
 ssao_enabled = true
 ssao_intensity = 4.0
-ssil_enabled = true
 sdfgi_use_occlusion = true
-glow_enabled = true
 glow_intensity = 2.42
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6tjto"]
@@ -74,9 +72,11 @@ shadow_mesh = SubResource("ArrayMesh_n5owx")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=2022578661]
 transform = Transform3D(0.46954536, -0.49754873, 0.7293644, -0.84082794, -3.6893432e-08, 0.5413026, -0.26932442, -0.867436, -0.418353, 0, 2.562986, 0)
+light_bake_mode = 1
 shadow_enabled = true
 shadow_normal_bias = 0.0
 shadow_blur = 2.412
+directional_shadow_mode = 1
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=350658340]
 environment = SubResource("Environment_enhji")
